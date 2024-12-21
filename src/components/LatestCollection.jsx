@@ -26,7 +26,7 @@ const LatestCollection = () => {
         {latestProducts.map((item, index) => (
           <ProductItem
             key={index}
-            id={item._id}
+            id={item.id}
             image={item.image}
             name={item.name}
             price={item.price}
