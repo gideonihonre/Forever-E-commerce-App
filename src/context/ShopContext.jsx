@@ -106,20 +106,13 @@ const ShopContextProvider = ({ children }) => {
   }
 
   const getCartAmount = () => {
-    let totalAmount = Object.keys(cartItems)
-      .map((itemId) => {
-        // Convert itemId to number if necessary
-        let numericItemId = Number(itemId) // or parseInt(itemId, 10);
-        // Find the product with the matching id
-        let itemInfo = products.find((product) => product.id === numericItemId)
-        // If the product exists, calculate the total for this item
-        if (itemInfo) {
-          return itemInfo.price * cartItems[itemId]
-        }
-        return 0 // If no matching product is found, add 0 to the total
-      })
-      .reduce((acc, curr) => acc + curr, 0) // Sum up all item totals
-    return totalAmount
+    return cartItems.reduce((total, cartItem) => {
+      const product = products.find((p) => p.id === cartItem.productId)
+      if (product) {
+        total += product.price * cartItem.quantity
+      }
+      return total
+    }, 0)
   }
 
   // console.log("Item ID:", itemId, "Type:", typeof itemId)
